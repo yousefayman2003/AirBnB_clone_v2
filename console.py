@@ -328,8 +328,7 @@ class HBNBCommand(cmd.Cmd):
         print("Updates an object with new information")
         print("Usage: update <className> <id> <attName> <attVal>\n")
 
-     # ====================== Helper Functions =======================
-
+    # ======= Helper Functions =======
     def parse_args(self, args):
         """parses each <value>"""
         parsed = {}

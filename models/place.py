@@ -16,9 +16,9 @@ place_amenity = Table("place_amenity", Base.metadata,
                              primary_key=True, nullable=False),
                       )
 
+
 class Place(BaseModel, Base):
     """ A place to stay """
-
     __tablename__ = "places"
     city_id = Column(String(60), ForeignKey("cities.id"), nullable=False)
     user_id = Column(String(60), ForeignKey("users.id"), nullable=False)
@@ -36,18 +36,22 @@ class Place(BaseModel, Base):
         reviews = relationship("Review", cascade="all, delete-orphan",
                                backref=backref("place", cascade="all"))
         amenities = relationship("Amenity", secondary=place_amenity,
-                                 viewonly=False, backref=backref("place_amenities"))
-
+                                 viewonly=False,
+                                 backref=backref("place_amenities"))
     else:
         @property
         def reviews(self):
-            """returns the list of Review instances with place_id equals to the current Place.id"""
+            """
+            returns the list of Review instances with
+            place_id equals to the current Place.id
+            """
             from models import storage
             from models.review import Review
 
             instances = storage.all(Review)
 
-            return [review for review in instances.values() if self.id == review.place_id]
+            return ([review for review in instances.values()
+                    if self.id == review.place_id])
 
         @property
         def amenities(self):
@@ -60,5 +64,6 @@ class Place(BaseModel, Base):
 
         @amenities.setter
         def amenities(self, obj=None):
-            if obj and isinstance(obj, Amenity) and obj.id not in self.amenity_ids:
+            if (obj and isinstance(obj, Amenity) and
+                    obj.id not in self.amenity_ids):
                 self.amenity_ids.append(obj.id)
