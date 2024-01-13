@@ -47,6 +47,8 @@ class DBStorage:
                 key = "{}.{}".format(type(obj).__name__, obj.id)
                 instances[key] = obj
 
+            return instances
+
         instances = {}
         if cls:
             cls = eval(cls)
