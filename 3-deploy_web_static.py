@@ -25,6 +25,7 @@ def do_pack():
 
     return None
 
+
 def do_deploy(archive_path):
     """Distributes archives to web servers"""
     if not path.exists(archive_path):
@@ -62,12 +63,12 @@ def do_deploy(archive_path):
 
     return True
 
+
 def deploy():
     """Creates and distributes an archive to your web servers"""
     archive_path = do_pack()
-    
+
     if archive_path is None:
         return False
-    
-    return do_deploy(archive_path
 
+    return do_deploy(archive_path)

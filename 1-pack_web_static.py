@@ -17,8 +17,8 @@ def do_pack():
         if local("mkdir versions").failed:
             return None
     cmd = "cd web_static && tar -cvzf ../{} . && cd -".format(archive)
-    
+
     if local(cmd).succeeded:
         return archive
-    
+
     return None
