@@ -18,7 +18,7 @@ def do_deploy(archive_path):
     if put(archive_path, upload_path).failed:
         return False
 
-    current_release = '/data/web_static/releases/{}'.format(file_mame)
+    current_release = '/data/web_static/releases/{}'.format(file_name)
     if run("rm -rf {}".format(current_release)).failed:
         return False
 
