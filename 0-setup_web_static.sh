@@ -2,30 +2,26 @@
 # Bash script that sets up your web servers for the deployment
 
 # Install Nginx
-sudo apt-get update
-sudo apt-get -y install nginx
+apt-get -y update
+apt-get -y install nginx
 
 # Create folders
-sudo mkdir -p /data/web_static/releases/test
-sudo mkdir -p /data/web_static/shared
+mkdir -p /data/web_static/releases/test
+mkdir -p /data/web_static/shared
 
 # Create a fake HTML file
-sudo echo '<html>
-  <head>
-  </head>
-  <body>
-    Holberton School
-  </body>
-</html>' > /data/web_static/releases/test/index.html
+echo "Its Working!!" > /data/web_static/releases/test/index.html
 
 # Create symbolic link
-sudo ln -sf /data/web_static/current /data/web_static/releases/test/
+rm -rf /data/web_static/current
+ln -sf /data/web_static/releases/test /data/web_static/current
 
 # Give ownership
-sudo chown -hR ubuntu:ubuntu /data/
+chown -hR ubuntu:ubuntu /data/
 
 # Update nginx configuration
-sudo sed -i '51 i \\n\tlocation /hbnb_static {\n\talias /data/web_static/current;\n\t}' /etc/nginx/sites-available/default
+NEW="\\\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t}\n"
+sed -i "38i $NEW" /etc/nginx/sites-available/default
 
 # Restart nginx
-sudo service nginx restart
+service nginx restart
