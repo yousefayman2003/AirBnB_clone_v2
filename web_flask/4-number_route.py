@@ -23,10 +23,11 @@ def c(text):
     return 'C ' + text.replace('_', ' ')
 
 
+@app.route('/python', strict_slashes=False)
 @app.route('/python/<text>', strict_slashes=False)
-def python(text):
+def python(text="is cool"):
     """displays python with parameter"""
-    return 'Python ' + (text.replace('_', ' ') if text else 'is cool')
+    return 'Python ' + text.replace('_', ' ')
 
 
 @app.route('/number/<int:n>', strict_slashes=False)
