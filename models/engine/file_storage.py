@@ -72,3 +72,7 @@ class FileStorage:
                     '__class__'] + '.' + obj.id]
             except Exception:
                 pass
+
+    def close(self):
+        """reload objects"""
+        self.reload()
